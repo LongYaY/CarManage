@@ -1,1 +1,48 @@
-{"code":200,"msg":"获取成功","list":[{"idcard":"1","brand":"奥迪","model":"A4","year":"2019","color":"黑色","thumbnail":"https://youjia-image.cdn.bcebos.com/modelImage/7edf1355d40c29b449907a5689c5d133/17000394704916e428cc.JPG@!watermark_1","createTime":"2021-04-01","updateTime":"2021-04-01","deleteTime":"2021-04-01"},{"idcard":"2","brand":"奔驰","model":"C200","year":"2019","color":"黑色","thumbnail":"https://youjia-image.cdn.bcebos.com/modelImage/4cf5b757f2a53e3c6b29460957370b2b/16681579791103afc7b4.jpg@!watermark_1","createTime":"2021-04-01","updateTime":"2021-04-01","deleteTime":"2021-04-01"},{"idcard":"3","brand":"梅赛德斯-迈巴赫","model":"S480","year":"2023","color":"炫黑","thumbnail":"https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles/sedan/maybach/803/680-MANUFAKTUR.png","createTime":"2023-04-01","updateTime":"2023-04-01","deleteTime":"2023-04-01"},{"idcard":"4","brand":"林肯","model":"NAUTILUS至尊","year":"2000","color":"黑色","thumbnail":"https://www.lincoln.com.cn/content/dam/lincoln/cn/l_cn_zh/nameplate/WSPAD-CFG-2024-NautilusChina202400CHN/VS-GR.jpg","createTime":"2021-04-01","updateTime":"2021-04-01","deleteTime":"2021-04-01"},{"idcard":"5","brand":"小爱","model":"300","year":"2003","color":"红色","thumbnail":"https://picsum.photos/200/200"},{"idcard":"5","brand":"小爱","model":"300","year":"2003","color":"红色","thumbnail":"https://picsum.photos/200/200"},{"idcard":"6","brand":"今晚","model":"356","year":"2008","color":"白色","thumbnail":"https://picsum.photos/200/200"}]}
+{
+    "code":200,
+    "msg":"获取成功",
+    "list":[{
+        "idcard": "1",
+        "brand": "奥迪",
+        "model": "A4",
+        "year": "2019",
+        "color": "黑色",
+        "thumbnail": "https://youjia-image.cdn.bcebos.com/modelImage/7edf1355d40c29b449907a5689c5d133/17000394704916e428cc.JPG@!watermark_1",
+        "createTime": "2021-04-01",
+        "updateTime": "2021-04-01",
+        "deleteTime": "2021-04-01"
+    },{
+        "idcard": "2",
+        "brand": "奔驰",
+        "model": "C200",
+        "year": "2019",
+        "color": "黑色",
+        "thumbnail": "https://youjia-image.cdn.bcebos.com/modelImage/4cf5b757f2a53e3c6b29460957370b2b/16681579791103afc7b4.jpg@!watermark_1",
+        "createTime": "2021-04-01",
+        "updateTime": "2021-04-01",
+        "deleteTime": "2021-04-01"
+    }
+    ,{
+        "idcard": "3",
+        "brand": "梅赛德斯-迈巴赫",
+        "model": "S480",
+        "year": "2023",
+        "color": "炫黑",
+        "thumbnail": "https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles/sedan/maybach/803/680-MANUFAKTUR.png",
+        "createTime": "2023-04-01",
+        "updateTime": "2023-04-01",
+        "deleteTime": "2023-04-01"
+    }
+    ,{
+        "idcard": "4",
+        "brand": "林肯",
+        "model": "NAUTILUS至尊",
+        "year": "2000",
+        "color": "黑色",
+        "thumbnail": "https://www.lincoln.com.cn/content/dam/lincoln/cn/l_cn_zh/nameplate/WSPAD-CFG-2024-NautilusChina202400CHN/VS-GR.jpg",
+        "createTime": "2021-04-01",
+        "updateTime": "2021-04-01",
+        "deleteTime": "2021-04-01"
+    }
+]
+}

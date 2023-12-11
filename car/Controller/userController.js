@@ -17,7 +17,7 @@ const userlist = (req, res) => {
 const addCar = (req, res) => {
   console.log(req.body);
   let add = req.body;
-  console.log(add);
+  // console.log(add);
   fs.readFile(
     path.join(__dirname, "../data/user.json"),
     "utf-8",
@@ -27,7 +27,7 @@ const addCar = (req, res) => {
         res.end("失败");
       } else {
         let car = JSON.parse(data);
-        console.log(car);
+        // console.log(car);
         car.list.push(add);
         fs.writeFile(
           path.join(__dirname, "../data/user.json"),
@@ -51,15 +51,15 @@ const addCar = (req, res) => {
 const deleteUser = (req, res) => {
   let id = req.url.split("?")[1].split("=")[1];
   let data = JSON.parse(userList());
-  console.log(data);
-  let index = data.list.findIndex((item) => item.id == id);
+  // console.log(data);
+  let index = data.list.findIndex((item) => item.idcard == id);
   if (index == -1) {
     res.statusCode = 200;
     res.end(JSON.stringify({ msg: "未找到数据" }));
   }
   data.list.splice(index, 1);
   let dataStr = JSON.stringify(data);
-  console.log(dataStr);
+  // console.log(dataStr);
   fs.writeFile(path.join(__dirname, "../data/user.json"), dataStr, (err) => {
     if (err) {
       res.statusCode = 404;
@@ -67,6 +67,25 @@ const deleteUser = (req, res) => {
     }
     res.statusCode = 200;
     res.end(JSON.stringify({ msg: "删除成功" }));
+  });
+};
+//详情
+const detailsCar = (req, res) => {
+  let id = req.url.split("?")[1].split("=")[1];
+  console.log(id);
+  let data = JSON.parse(userList());
+  console.log(data);
+  let details = data.list.find((item) => item.idcard == id);
+  if (!details) {
+    res.statusCode = 200;
+    res.end(JSON.stringify({ msg: "未找到数据" }));
+    return;
+  }
+  res.statusCode = 200;
+  res.end(JSON.stringify(details));
+  res.json({
+    code: 200,
+    msg: "查询成功",
   });
 };
 //修改
@@ -85,6 +104,7 @@ module.exports = {
   userlist,
   deleteUser,
   addCar,
+  detailsCar,
   modifyCar,
   searchCar,
 };

@@ -123,6 +123,37 @@
     #modifyMask button {
       margin: 20px 0 0 60px;
     }
+    #view {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+    #viewMask {
+      width: 360px;
+      height: 480px;
+      padding: 20px;
+      background-color: white;
+      margin: 100px auto;
+      border-radius: 5px;
+    }
+    #viewMask h2 {
+      text-align: center;
+    }
+    #viewMask input {
+      width: 350px;
+      height: 35px;
+      padding-left: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    #viewMask button {
+      margin: 15px 0 0 145px;
+    }
   </style>
   <body>
     <div id="box">
@@ -193,13 +224,37 @@
         </button>
       </div>
     </div>
+    <div id="view">
+      <div id="viewMask">
+        <h2>详情列表</h2>
+        ID：<br />
+        <input type="text" id="idr" /><br />
+        汽车：<br />
+        <input type="text" id="namer" /><br />
+        型号：<br />
+        <input type="text" id="modelr" /><br />
+        年份：<br />
+        <input type="text" id="yearr" /><br />
+        颜色：<br />
+        <input type="text" id="colorr" /><br />
+        图片：<br />
+        <input type="text" id="imgr" /><br />
+        <button type="button" class="layui-btn layui-bg-orange" id="offView">
+          取消
+        </button>
+      </div>
+    </div>
     <script>
+      let id;
       $(function () {
         runder();
         $("tbody").on("click", tbodyFun);
         $("#defineAdd").on("click", defineAddFun);
         $("#addList").on("click", function () {
           $("#mask").show();
+        });
+        $("#offView").on("click", function () {
+          $("#view").hide();
         });
       });
       $("#offAdd").click(function () {
@@ -232,7 +287,7 @@
           event.target.tagName == "BUTTON" &&
           event.target.innerHTML == "删除"
         ) {
-          let id = event.target.dataset.id;
+          id = event.target.dataset.id;
           $.ajax({
             type: "GET",
             url: "http://localhost:3000/api/del?id=" + id,
@@ -247,6 +302,25 @@
           event.target.innerHTML == "修改"
         ) {
           $("#modify").show();
+        }
+        if (
+          event.target.tagName == "BUTTON" &&
+          event.target.innerHTML == "查看"
+        ) {
+          $("#view").show();
+          id = event.target.dataset.id;
+          $.ajax({
+            type: "GET",
+            url: "http://localhost:3000/api/details?id=" + id,
+            success: function (res) {
+              $("#idr").val(res.idcard),
+                $("#namer").val(res.brand),
+                $("#modelr").val(res.model),
+                $("#yearr").val(res.year),
+                $("#colorr").val(res.color),
+                $("#imgr").val(res.thumbnail);
+            },
+          });
         }
       }
 
@@ -265,8 +339,9 @@
                            <td>${item.year}</td>
                            <td>${item.color}</td>
                            <td><img src="${item.thumbnail}" alt=""></td>
-                           <td><button type="button" class="layui-btn layui-bg-red">删除</button>
+                           <td><button type="button" class="layui-btn layui-bg-red"data-id=${item.idcard}>删除</button>
                             <button type="button" class="layui-btn layui-bg-orange">修改</button>
+                            <button type="button" class="layui-btn layui-bg-purple" data-id=${item.idcard}>查看</button>
                            </td>
                         </tr>`;
             });
