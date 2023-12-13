@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <!-- 引入 layui.css -->
-    <link href="//unpkg.com/layui@2.9.0/dist/css/layui.css" rel="stylesheet" />
+    <!-- <link href="//unpkg.com/layui@2.9.0/dist/css/layui.css" rel="stylesheet" /> -->
     <!-- 引入 layui.js -->
-    <script src="//unpkg.com/layui@2.9.0/dist/layui.js"></script>
+    <!-- <script src="//unpkg.com/layui@2.9.0/dist/layui.js"></script> -->
     <!-- 最新版本的 jQuery -->
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
   </head>
@@ -28,7 +28,22 @@
       text-align: center;
       margin-top: 10px;
       border: 1px solid #ccc;
+      border-collapse: collapse;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    table button {
+      width: 60px;
+      height: 35px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    table button:last-child {
+      background-color: #a233c6;
+    }
+    table button:nth-child(2) {
+      background-color: #ffb800;
     }
     th {
       background-color: #f2f2f2;
@@ -55,10 +70,20 @@
     }
     #searchBtn {
       width: 80px;
+      height: 40px;
+      background-color: #1e9fff;
+      color: white;
+      border: none;
+      border-radius: 4px;
       margin: -2px 0 0 10px;
     }
     #addList {
       width: 80px;
+      height: 40px;
+      background-color: #16b777;
+      color: white;
+      border: none;
+      border-radius: 4px;
       margin: -2px 0 0 10px;
     }
     #mask {
@@ -72,7 +97,7 @@
     }
     #addMask {
       width: 360px;
-      height: 480px;
+      height: 550px;
       padding: 20px;
       background-color: white;
       margin: 100px auto;
@@ -90,6 +115,12 @@
       margin-bottom: 10px;
     }
     #addMask button {
+      width: 80px;
+      height: 40px;
+      background-color: #16b777;
+      color: white;
+      border: none;
+      border-radius: 4px;
       margin: 20px 0 0 60px;
     }
     #modify {
@@ -103,7 +134,7 @@
     }
     #modifyMask {
       width: 360px;
-      height: 480px;
+      height: 550px;
       padding: 20px;
       background-color: white;
       margin: 100px auto;
@@ -121,6 +152,12 @@
       margin-bottom: 10px;
     }
     #modifyMask button {
+      width: 80px;
+      height: 40px;
+      background-color: #ffb800;
+      color: white;
+      border: none;
+      border-radius: 4px;
       margin: 20px 0 0 60px;
     }
     #view {
@@ -134,7 +171,7 @@
     }
     #viewMask {
       width: 360px;
-      height: 480px;
+      height: 550px;
       padding: 20px;
       background-color: white;
       margin: 100px auto;
@@ -152,6 +189,12 @@
       margin-bottom: 10px;
     }
     #viewMask button {
+      width: 80px;
+      height: 40px;
+      background-color: #a233c6;
+      color: white;
+      border: none;
+      border-radius: 4px;
       margin: 15px 0 0 145px;
     }
   </style>
@@ -159,9 +202,7 @@
     <div id="box">
       <h1>汽车管理</h1>
       <input type="text" id="search" placeholder="模糊搜索" />
-      <button type="button" class="layui-btn layui-bg-blue" id="searchBtn">
-        搜索
-      </button>
+
       <button type="button" class="layui-btn" id="addList">添加</button>
       <table border="1">
         <thead>
@@ -256,6 +297,8 @@
         $("#offView").on("click", function () {
           $("#view").hide();
         });
+        $("#defineModify").click(defineFun);
+        $("#search").on("input", searchFun);
       });
       $("#offAdd").click(function () {
         $("#mask").hide();
@@ -263,6 +306,52 @@
       $("#offModify").click(function () {
         $("#modify").hide();
       });
+      function searchFun() {
+        let index = $("#search").val();
+        console.log(encodeURIComponent(index));
+        let html = "";
+        $.ajax({
+          url: "http://localhost:3000/api/search?id=" + index,
+          type: "GET",
+          success: function (res) {
+            let arr = res;
+            arr.forEach((item, index) => {
+              html += ` <tr>
+                           <td>${item.idcard}</td>
+                           <td>${item.brand}</td>
+                           <td>${item.model}</td>
+                           <td>${item.year}</td>
+                           <td>${item.color}</td>
+                           <td><img src="${item.thumbnail}" alt=""></td>
+                           <td><button type="button" class="layui-btn layui-bg-red"data-id=${item.idcard}>删除</button>
+                            <button type="button" class="layui-btn layui-bg-orange"data-id=${item.idcard}>修改</button>
+                            <button type="button" class="layui-btn layui-bg-purple" data-id=${item.idcard}>查看</button>
+                           </td>
+                        </tr>`;
+            });
+            $("tbody").html(html);
+          },
+        });
+      }
+      //编辑
+      function defineFun() {
+        id = $("#ids").val();
+        $.ajax({
+          url: "http://localhost:3000/api/modify?id=" + id,
+          type: "PUT",
+          data: {
+            idcard: $("#ids").val(),
+            brand: $("#names").val(),
+            model: $("#models").val(),
+            year: $("#years").val(),
+            color: $("#colors").val(),
+            thumbnail: $("#imgs").val(),
+          },
+          success: function (res) {
+            console.log(res);
+          },
+        });
+      }
       function defineAddFun() {
         let obj = {
           idcard: $("#id").val(),
@@ -302,6 +391,19 @@
           event.target.innerHTML == "修改"
         ) {
           $("#modify").show();
+          id = event.target.dataset.id;
+          $.ajax({
+            url: "http://localhost:3000/api/details?id=" + id,
+            type: "get",
+            success: function (res) {
+              $("#ids").val(res.idcard);
+              $("#names").val(res.brand),
+                $("#models").val(res.model),
+                $("#years").val(res.year),
+                $("#colors").val(res.color),
+                $("#imgs").val(res.thumbnail);
+            },
+          });
         }
         if (
           event.target.tagName == "BUTTON" &&
@@ -340,7 +442,7 @@
                            <td>${item.color}</td>
                            <td><img src="${item.thumbnail}" alt=""></td>
                            <td><button type="button" class="layui-btn layui-bg-red"data-id=${item.idcard}>删除</button>
-                            <button type="button" class="layui-btn layui-bg-orange">修改</button>
+                            <button type="button" class="layui-btn layui-bg-orange"data-id=${item.idcard}>修改</button>
                             <button type="button" class="layui-btn layui-bg-purple" data-id=${item.idcard}>查看</button>
                            </td>
                         </tr>`;

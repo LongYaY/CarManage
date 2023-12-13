@@ -6,6 +6,6 @@ router.get("/user", userController.userlist);
 router.get("/del", userController.deleteUser);
 router.post("/add", userController.addCar);
 router.get("/details", userController.detailsCar);
-router.get("/modify", userController.modifyCar);
+router.put("/modify", userController.modifyCar);
 router.get("/search", userController.searchCar);
 module.exports = router;
